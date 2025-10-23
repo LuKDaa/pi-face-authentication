@@ -1,0 +1,99 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+h1, h2 {
+    color: #444;
+    text-align: center;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Estilos para los mensajes Flash */
+.message {
+    padding: 15px;
+    margin: 0 auto 20px auto;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    max-width: 800px;
+}
+.message.success {
+    background-color: #28a745;
+}
+.message.error {
+    background-color: #dc3545;
+}
+.message.info {
+    background-color: #17a2b8;
+}
+
+/* Formulario */
+.user-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.user-form input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.user-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.user-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Botón de Entrenamiento */
+.button {
+    display: block;
+    background-color: #28a745;
+    color: white !important;
+    padding: 12px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.button:hover {
+    background-color: #218838;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Registros de Acceso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Registros de Acceso</h1>
+    <nav>
+        <a href="/">Añadir Usuario</a>
+        <a href="/logs">Ver Registros</a>
+    </nav>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha y Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.user_name }}</td>
+                    <td>{{ log.access_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

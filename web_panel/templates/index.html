@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Control de Acceso</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Panel de Control de Acceso</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h2>Añadir Nuevo Usuario</h2>
+        <form action="/add_user" method="post" class="user-form">
+            <input type="text" name="user_id" placeholder="ID (ej: 3)" required>
+            <input type="text" name="user_name" placeholder="Nombre Completo" required>
+            <button type="submit">Añadir Usuario</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Usuarios Registrados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_id, user_name in users %}
+                <tr>
+                    <td>{{ user_id }}</td>
+                    <td>{{ user_name }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="2">No hay usuarios registrados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container">
+        <h2>Entrenamiento</h2>
+        <p>Después de añadir un usuario y capturar sus rostros, haz clic aquí para entrenar el modelo.</p>
+        <a href="/train_model" class="button">Entrenar Modelo</a>
+    </div>
+</body>
+</html>
