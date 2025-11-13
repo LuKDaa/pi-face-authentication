@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto: Control de Acceso Facial</title>
+    <style>
+        /* --- Reseteo Básico y Fuentes --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            box-sizing: border-box;
+        }
+
+        /* --- Contenedor Principal (Tarjeta) --- */
+        .card {
+            background-color: #ffffff;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Encabezado --- */
+        header {
+            background-color: #004a99;
+            color: white;
+            padding: 2rem 2.5rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.25rem;
+        }
+
+        /* --- Contenido --- */
+        .content {
+            padding: 2.5rem;
+            line-height: 1.65;
+        }
+
+        .content h2 {
+            font-size: 1.75rem;
+            color: #004a99;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+        }
+
+        .content p {
+            font-size: 1.05rem;
+            color: #444;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Lista de Tecnologías (Estilo "Píldora") --- */
+        .tech-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .tech-list li {
+            font-size: 0.9rem;
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        /* --- Sección de Enlaces (Botones) --- */
+        .links {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 0.9rem 1.8rem;
+            border-radius: 8px;
+            margin: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        /* Botón Primario (GitHub) */
+        .button.primary {
+            background-color: #24292e; /* Color de GitHub */
+            color: white;
+        }
+
+        .button.primary:hover {
+            background-color: #111;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Botón Secundario (Deepwiki) */
+        .button.secondary {
+            background-color: transparent;
+            color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .button.secondary:hover {
+            background-color: #0056b3;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* --- Responsividad para Móviles --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+
+            .card {
+                margin: 0.5rem;
+            }
+
+            header {
+                padding: 1.5rem;
+            }
+
+            header h1 {
+                font-size: 1.75rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .content h2 {
+                font-size: 1.5rem;
+            }
+
+            .content p {
+                font-size: 1rem;
+            }
+
+            .button {
+                display: block;
+                width: calc(100% - 3.6rem); /* Ancho completo con padding */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <header>
+            <h1>Proyecto: Control de Acceso Facial</h1>
+        </header>
+
+        <main class="content">
+            <section class="explanation">
+                <h2>Explicación del Proyecto</h2>
+                <p>
+                    Este es un prototipo funcional de un sistema de control de acceso biométrico. Utiliza una <strong>Raspberry Pi 3B+</strong> y una cámara para identificar rostros autorizados en tiempo real y, en caso de éxito, activar un relé o servomotor para desbloquear una puerta.
+                </p>
+                <p>
+                    El proyecto está diseñado como un sistema integrado. El reconocimiento facial se realiza con <strong>OpenCV</strong>, utilizando el algoritmo <strong>LBPH (Local Binary Patterns Histograms)</strong>, que es ideal por su ligereza y eficiencia en hardware limitado. El sistema incluye scripts dedicados para la captura de rostros, el entrenamiento del modelo y la ejecución del reconocimiento.
+                </p>
+                <p>
+                    Para facilitar su administración, el sistema cuenta con un <strong>Panel de Administración Web</strong> desarrollado en <strong>Flask</strong>. Desde este panel, un administrador puede añadir nuevos usuarios, ver los registros de acceso (almacenados en una base de datos <strong>SQLite</strong>) y disparar el re-entrenamiento del modelo.
+                </p>
+                
+                <h3>Tecnologías Utilizadas:</h3>
+                <ul class="tech-list">
+                    <li>Python</li>
+                    <li>OpenCV</li>
+                    <li>Flask</li>
+                    <li>SQLite</li>
+                    <li>Raspberry Pi</li>
+                    <li>GPIO</li>
+                    <li>HTML/CSS</li>
+                </ul>
+            </section>
+
+            <section class="links">
+                <a href="https://github.com/LuKDaa/pi-face-authentication" class="button primary" target="_blank" rel="noopener noreferrer">
+                    Ver Código Fuente (GitHub)
+                </a>
+                <a href="https://deepwiki.com/LuKDaa/pi-face-authentication" class="button secondary" target="_blank" rel="noopener noreferrer">
+                    Ver Documentación (Deepwiki)
+                </a>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
