@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 import json
 import os
 import subprocess
+import sqlite3
 
 app = Flask(__name__)
 app.secret_key = 'admin123'
 
 # Ruta al archivo de usuarios (relativa a la carpeta del proyecto)
 USERS_FILE = '../users.json'
-
+DB_PATH = '../database/logs.db'
 def read_users():
     """Lee los usuarios del archivo JSON."""
     if not os.path.exists(USERS_FILE):
@@ -61,12 +62,38 @@ def train_model():
     flash('Iniciando entrenamiento del modelo... Esto puede tardar.', 'info')
     try:
         # La ruta es relativa a la ubicación de app.py
-        subprocess.run(['python3', '../02_entrenar_modelo.py'], check=True, capture_output=True, text=True)
+        subprocess.run(['python3', '02_entrenar_modelo.py'], cwd='..', check=True, capture_output=True, text=True)
         flash('Modelo entrenado exitosamente. Reinicia el script de reconocimiento para aplicar los cambios.', 'success')
     except subprocess.CalledProcessError as e:
         flash(f'Error durante el entrenamiento: {e.stdout} {e.stderr}', 'error')
     
     return redirect(url_for('index'))
+
+@app.route('/logs')
+def view_logs():
+    """Muestra los registros de acceso desde la base de datos."""
+    try:
+        # Comprueba si la base de datos existe
+        if not os.path.exists(DB_PATH):
+            flash('La base de datos de registros aún no existe. Aún no se ha detectado ningún acceso.', 'info')
+            return render_template('logs.html', logs=[]) # Envía lista vacía
+
+        conn = sqlite3.connect(DB_PATH)
+        # Esto es clave: permite que la plantilla acceda a los datos por nombre
+        conn.row_factory = sqlite3.Row
+        
+        c = conn.cursor()
+        # Trae los logs, del más reciente al más antiguo
+        c.execute("SELECT user_name, access_time FROM access_logs ORDER BY access_time DESC")
+        logs = c.fetchall()
+        conn.close()
+        
+        # Pasa la variable 'logs' a la plantilla
+        return render_template('logs.html', logs=logs)
+
+    except Exception as e:
+        flash(f'Error al leer la base de datos de logs: {e}', 'error')
+        return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
